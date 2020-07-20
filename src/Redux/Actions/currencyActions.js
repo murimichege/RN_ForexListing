@@ -1,5 +1,4 @@
 import { GET_CURRENCY,GET_CURRENCY_SUCCESS, GET_CURRENCY_FAILURE } from "../ActionTypes";
-import fetch from 'cross-fetch'
 
 export const getCurrency = () =>{
     type: GET_CURRENCY

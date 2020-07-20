@@ -1,9 +1,10 @@
 import React,  {useEffect} from 'react'
-import {Text, View, Stylesheet, ScrollView, FlatList} from 'react-native'
-import {fetchCurrency} from '../../Redux/Actions/currencyActions'
+import {Text, View, Stylesheet, ScrollView, FlatList, RefreshControl, Show} from 'react-native'
+import fetchCurrency from '../../Redux/Actions/currencyActions'
+import { showMessage  } from 'react-native-flash-message'
 import {useSelector } from 'react-redux'
 import Instrument from '../../../components/Instrument'
-
+import styles from './styles'
 export default function HomeScreen(){
 const dispatch = useDispatch();
 useEffect(() => {
@@ -11,10 +12,16 @@ useEffect(() => {
 }, [])
 const {instruments, loading, error} = useSelector(state => state.instrument)
 
-
+if(error){
+  showMessage({
+    message: "Error",
+    description: error,
+    type: danger,
+    duration: 5000
+  })
+}
     return(
         <ScrollView
-        
         refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -23,7 +30,6 @@ const {instruments, loading, error} = useSelector(state => state.instrument)
           }
           style={styles.container}
         >
-          <Text style={styles.sectionText}>Cryptocurrencies</Text>
           {loading && <ActivityIndicator size="large" color={colors.blue} />}
 
             <FlatList
@@ -33,7 +39,7 @@ const {instruments, loading, error} = useSelector(state => state.instrument)
             renderItem = {({item}) => (
                 <Instrument  currency={item}/>
             )}
-            keyExtractor ={() => t.toString}
+            keyExtractor ={(i, t) => t.toString}
 
             
             />
@@ -43,4 +49,3 @@ const {instruments, loading, error} = useSelector(state => state.instrument)
     );
 }
 
-export default connect ()

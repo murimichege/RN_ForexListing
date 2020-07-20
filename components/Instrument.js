@@ -12,15 +12,15 @@ const Instrument = () => {
     return(
         <View>
             <View style={styles.cardCointaner}>
-                <View style={{paddingRight=5}}>
+                <View style={{paddingRight:5}}>
                     <Text style={styles.cardText}>
                         {instrument}{"\n"}
                         </Text>
                         <Text style={styles.closeoutBid}>
-                        {...closeoutAsk}
+                        {closeoutAsk}
                         </Text>
                         <Text style={styles.closeoutBid}>
-                        {...closeoutBid}
+                        {closeoutBid}
                         </Text>
                     </View>
                 </View>
@@ -32,7 +32,7 @@ const Instrument = () => {
     
 
 Instrument.propTypes={
-    currency = PropTypes.array
+    currency :PropTypes.array
 };
 const styles = StyleSheet.create({
     container: {

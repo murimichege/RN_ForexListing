@@ -24,3 +24,5 @@ const currencyReducer = (state= initialState, action) => {
     }
 
 }
+
+export default currencyReducer
