@@ -6,7 +6,7 @@ import {
 } from '../ActionTypes'
 
 const initialState = {
-    instruments: [],
+    instruments: {},
     loading: false,
     error: null
 }

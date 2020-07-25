@@ -1,36 +1,44 @@
 import { GET_CURRENCY,GET_CURRENCY_SUCCESS, GET_CURRENCY_FAILURE } from "../ActionTypes";
+import axios from 'axios'
 
 export const getCurrency = () =>{
+    return{
     type: GET_CURRENCY
+    }
 }
-export const currencySuccess = json => {
-    type: GET_CURRENCY_SUCCESS
-    payload: json
-}
+export const currencySuccess = instruments => {
+    return{
+    type: GET_CURRENCY_SUCCESS,
+    payload: instruments
+}}
 
 export const currencyFailure = error => {
-    type: GET_CURRENCY_FAILURE
+    return{
+    type: GET_CURRENCY_FAILURE,
     payload: 
         error
-    
-
+    }
 } 
 
 
- function fetchCurrency(){
-    return  async dispatch => {
+ export const  fetchCurrency = () => {
+    return  (dispatch) => {
         dispatch(getCurrency());
-    try{
-        const response = await fetch('https://api-fxpractice.oanda.com/v3/accounts/101-004-14328428-002/pricing?instruments=EUR_USD%2CUSD_CAD%2CGBP_AUD')
-        const json = response.json();
-        dispatch(currencySuccess(json.instruments))
-    
 
-    }
-    catch(error) {
-        dispatch(currencyFailure(error))}
-    
-    };
-};
-export default fetchCurrency;
+        axios
+        .get("https://api-fxpractice.oanda.com/v3/accounts/101-004-14328428-002/instruments")
+         // eslint-disable-next-line no-unused-vars
+         .then(response => {
+             // eslint-disable-next-line no-undef
+             const instruments=response.data
+             dispatch(currencySuccess(instruments))
+         })
+
+         .catch(error => {
+             dispatch(currencyFailure(error.message))
+
+         })
+
+        }}
+
 

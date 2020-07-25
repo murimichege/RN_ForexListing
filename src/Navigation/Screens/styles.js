@@ -10,6 +10,12 @@ const styles = StyleSheet.create({
     list :
     {
         alignItems: "center"
+    }, 
+    ScrollView: {
+        flex: 1,
+    backgroundColor: 'pink',
+    alignItems: 'center',
+    justifyContent: 'center'
     }
 
 })
