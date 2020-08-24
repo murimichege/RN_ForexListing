@@ -1,26 +1,19 @@
-/* eslint-disable react-native/no-color-literals */
-/* eslint-disable react-native/no-unused-styles */
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
+import * as React from 'react'
 import {StyleSheet } from 'react-native'
-import PropTypes from 'prop-types'
 
-const Instrument = ({currency}) => {
+const Instrument = ({currency})=> {
+    //const {name, type, displayName} = props;
    
-  
-    
     return(
-            <TouchableOpacity>
-                <Text>
+            <TouchableOpacity style={styles.container} activeOpacity={0.7}>
             <Text style={styles.cardText}>
-                {currency.name}
+                {currency.instrument}
                 </Text>
                 <Text style={styles.closeoutAsk}>
-                    {currency.type}
+                    {JSON.stringify(currency.candles.mid)}
                 </Text>
                 <Text>
-                    {currency.displayName}
-                </Text>
+                    {JSON.stringify(currency.candles.volume)}
                 </Text>
                 </TouchableOpacity>
         
@@ -28,9 +21,9 @@ const Instrument = ({currency}) => {
     }
     
 
-    Instrument.propTypes = {
+    /*Instrument.propTypes = {
         instruments: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         displayName: PropTypes.string.isRequired
             
@@ -38,11 +31,16 @@ const Instrument = ({currency}) => {
     };
 
         Instrument.defaultProps = {
-            instrument : []
+            instruments : []
 
         }
-
+*/
 const styles = StyleSheet.create({
+    container: {
+        flex:1
+
+
+    },
     cardText: {
         color: "white",
         textAlign: 'right'

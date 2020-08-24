@@ -1,9 +1,7 @@
-import {applyMiddleware, compose, createStore, combineReducers} from 'redux'
+import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
-import currencyReducer from './Reducers/currencyReducer'
-const rootReducer = combineReducers({
-    currencyReducer 
-})
-const store = createStore(rootReducer, compose(applyMiddleware(thunk)))
+import reducers from './Reducers/index'
+
+const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 export default store
