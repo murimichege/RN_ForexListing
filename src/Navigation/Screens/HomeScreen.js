@@ -1,39 +1,52 @@
 import   React, {useEffect} from 'react'
     import { FlatList, ActivityIndicator, View, Text, SafeAreaView} from 'react-native'
-    import Instrument from '../../../components/Instrument'
     import styles from './styles'
+    import CurrencyPair from '../../../components/CurrencyPair'
     import {useSelector, useDispatch} from 'react-redux'
     import fetchCurrency from '../../Redux/Actions/currencyActions'
-    
      function HomeScreen () { 
-      const dispatch = useDispatch()
-    
+      
+    const dispatch = useDispatch()
+
       useEffect(() => {
-       dispatch(fetchCurrency())
+       fetchCurrency(dispatch)
       }, []);
-      const { instruments, loading, error} = useSelector(state => state.currenciesreducer
-      );
-      if (error) 
-      return (<View><Text>{Error}</Text></View>)
-    else if (loading)
-      return (<ActivityIndicator size='large' />)
+      const {Pairs, loading, error} = useSelector(state => ({
+        error: state.currencyReducer.error,
+        Pairs: state.currencyReducer.Pairs,
+        loading: state.currencyReducer.loading
+
+      }))
+
+      
+      if (error){ 
+      return (
+      <Text>{error}</Text>
+      )
+    }
+    else if (loading){
+      return (<ActivityIndicator size='large' />)}
     else 
       return (
           <SafeAreaView
-         
           style={styles.container}
         >
            <FlatList
-              data={instruments}
+              data={Pairs}
               numColumns={1}
               contentContainerStyle = {styles.list}
-              keyExtractor  = {({item}) => item.toString() }
-              renderItem = {(item, index) => (
-                <Instrument currency={item}  />
+              keyExtractor  = {(item,index) => item.toLocaleString()}
+              renderItem = {({item}) => (
+                <CurrencyPair instruments = {item.instruments}   />
               )}
+               
+
     />
     </SafeAreaView>
         );
       }
     
     export default HomeScreen
+
+      
+

@@ -6,23 +6,23 @@ import {
 } from '../ActionTypes'
 
 const initialState = {
-    instruments: [],
+    Pairs: [],
     loading: false,
     error: null
 }
 
-const reducer = (state= initialState, action) => {
+const currencyReducer = (state= initialState, action) => {
     switch(action.type){
         case GET_CURRENCY:
             return {...state, loading: true}
         case GET_CURRENCY_SUCCESS:
-            return {...state, loading: false, error: null, instruments: action.payload.instruments }
+            return {...state, loading: false, error: null, Pairs: action.data }
         case GET_CURRENCY_FAILURE:
-            return { ...state, loading: false, error: action.payload.error}
+            return { ...state, loading: false, error: action.payload}
         default:
             return state
     }
 
 }
 
-    export default reducer;
+    export default currencyReducer;

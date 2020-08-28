@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import * as React from 'react';
+import  React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MainStackNavigator from './src/Navigation/Mainnavigation'
 import store from './src/Redux/store'

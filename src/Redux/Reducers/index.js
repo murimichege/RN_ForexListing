@@ -1,7 +1,7 @@
-import {  combineReducers } from "redux";
-import reducer from './currencyReducer'
+import {  combineReducers } from 'redux';
+import currencyReducer from './currencyReducer'
 const reducers = combineReducers({
-currenciesreducer: reducer
+currencyReducer: currencyReducer
 })
 
 export default reducers

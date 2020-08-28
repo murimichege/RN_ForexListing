@@ -1,49 +1,41 @@
 import { GET_CURRENCY,GET_CURRENCY_SUCCESS, GET_CURRENCY_FAILURE } from "../ActionTypes";
 import axios from '../../util/axios';
+import CurrencyPair from "../../../components/CurrencyPair";
 
-
-  
-
- 
 export const getCurrency = () =>{
     return{
     type: GET_CURRENCY,
-    payload: {
-        loading: true
-    }
+   
 
     }
 }
-export const currencySuccess = instruments => {
+export const currencySuccess = data => {
     return{
     type: GET_CURRENCY_SUCCESS,
-    payload: {instruments}
+    payload: data
 }}
 
 export const currencyFailure = error => {
     return{
     type: GET_CURRENCY_FAILURE,
     payload: 
-        {error}
+        error
     }
 } 
 export const fetchCurrency =() => {
-      return dispatch => {
+      return async function(dispatch) {
  dispatch(getCurrency());
+ try{
+     const data = 
+ await axios.get('/v3/instruments/EUR_USD/candles')
 
+ dispatch (currencySuccess(data));
 
- axios.get("/v3/instruments/EUR_USD/candles?price=M")
- .then(response => {
-     dispatch(currencySuccess(response.data));
-
- })
-        .catch (error => {
-            const err = error
-
-            dispatch(currencyFailure(err))
-         })
-    
-  }
-}  
+}
+catch(error){
+    return dispatch(currencyFailure(error.message))
+}
+}
+}   
 export default fetchCurrency
   
